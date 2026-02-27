@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ghostties</title>
+  <meta name="description" content="Ghostties — a multi-agent workspace terminal. Coming soon.">
+  <meta property="og:title" content="ghostties">
+  <meta property="og:description" content="A multi-agent workspace terminal. Coming soon.">
+  <meta property="og:image" content="/assets/frame-pyramid.png">
+  <meta property="og:type" content="website">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
@@ -15,6 +20,7 @@
       color: #e8e4df;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
@@ -22,6 +28,16 @@
 
     .container {
       padding: 2rem;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .hero-video {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 2rem;
     }
 
     .four-oh-four {
@@ -49,6 +65,16 @@
 </head>
 <body>
   <div class="container">
+    <video
+      class="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="assets/frame-pyramid.png"
+    >
+      <source src="assets/GhostiesAnimation.mp4" type="video/mp4">
+    </video>
     <div class="four-oh-four">404</div>
     <p class="tagline">We're made on 404, coming soon.</p>
     <p class="more">More soon.</p>
