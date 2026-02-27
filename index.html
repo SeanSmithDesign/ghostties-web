@@ -31,39 +31,42 @@
       max-width: 720px;
       height: auto;
       border-radius: 16px;
+      cursor: pointer;
     }
 
-    .replay {
-      display: none;
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
       align-items: center;
-      gap: 6px;
-      background: none;
-      border: none;
-      color: rgba(255, 255, 255, 0.4);
+      justify-content: space-between;
+      padding: 16px 24px;
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 16px;
-      cursor: pointer;
-      padding: 6px 12px;
-      border-radius: 8px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.25);
       transition: color 0.2s;
     }
 
-    .replay:hover {
-      color: rgba(255, 255, 255, 0.7);
+    footer a:hover {
+      color: rgba(255, 255, 255, 0.5);
     }
 
-    .replay svg {
+    footer svg {
       width: 16px;
       height: 16px;
-    }
-
-    .replay.visible {
-      display: flex;
+      display: block;
     }
 
     @media (max-width: 480px) {
       body { padding: 16px; }
       video { border-radius: 12px; }
+      footer { padding: 12px 16px; font-size: 12px; }
     }
   </style>
 </head>
@@ -71,25 +74,31 @@
   <video autoplay muted playsinline poster="assets/frame-pyramid.png">
     <source src="assets/GhostiesAnimation.mp4" type="video/mp4">
   </video>
-  <button class="replay" id="replay">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M2 8a6 6 0 1 1 1.76 4.24"/>
-      <path d="M2 12V8h4"/>
-    </svg>
-    Replay
-  </button>
+
+  <footer>
+    <span>&copy; 2026</span>
+    <a href="https://x.com/seansmithbuilds" target="_blank" rel="noopener" aria-label="Twitter">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    </a>
+  </footer>
+
   <script>
     const video = document.querySelector('video');
-    const btn = document.getElementById('replay');
+    const PAUSE_AT = 11.3; // Frame 136 at 12fps — all assets visible, before fade
 
-    video.addEventListener('ended', () => {
-      btn.classList.add('visible');
+    video.addEventListener('timeupdate', () => {
+      if (video.currentTime >= PAUSE_AT) {
+        video.pause();
+      }
     });
 
-    btn.addEventListener('click', () => {
-      btn.classList.remove('visible');
-      video.currentTime = 0;
-      video.play();
+    video.addEventListener('click', () => {
+      if (video.paused) {
+        video.currentTime = 0;
+        video.play();
+      }
     });
   </script>
 </body>
