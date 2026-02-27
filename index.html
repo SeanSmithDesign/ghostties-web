@@ -19,9 +19,11 @@
 
     body {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 24px;
+      gap: 16px;
     }
 
     video {
@@ -31,6 +33,34 @@
       border-radius: 16px;
     }
 
+    .replay {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.4);
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: color 0.2s;
+    }
+
+    .replay:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .replay svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .replay.visible {
+      display: flex;
+    }
+
     @media (max-width: 480px) {
       body { padding: 16px; }
       video { border-radius: 12px; }
@@ -38,8 +68,29 @@
   </style>
 </head>
 <body>
-  <video autoplay muted loop playsinline poster="assets/frame-pyramid.png">
+  <video autoplay muted playsinline poster="assets/frame-pyramid.png">
     <source src="assets/GhostiesAnimation.mp4" type="video/mp4">
   </video>
+  <button class="replay" id="replay">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 8a6 6 0 1 1 1.76 4.24"/>
+      <path d="M2 12V8h4"/>
+    </svg>
+    Replay
+  </button>
+  <script>
+    const video = document.querySelector('video');
+    const btn = document.getElementById('replay');
+
+    video.addEventListener('ended', () => {
+      btn.classList.add('visible');
+    });
+
+    btn.addEventListener('click', () => {
+      btn.classList.remove('visible');
+      video.currentTime = 0;
+      video.play();
+    });
+  </script>
 </body>
 </html>
