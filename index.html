@@ -7,7 +7,7 @@
   <meta name="description" content="Ghostties — a multi-agent workspace terminal. Coming soon.">
   <meta property="og:title" content="ghostties">
   <meta property="og:description" content="A multi-agent workspace terminal. Coming soon.">
-  <meta property="og:image" content="/assets/frame-pyramid.png">
+  <meta property="og:image" content="/assets/poster.png">
   <meta property="og:type" content="website">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,7 +23,6 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
-      gap: 16px;
     }
 
     video {
@@ -71,7 +70,7 @@
   </style>
 </head>
 <body>
-  <video autoplay muted playsinline poster="assets/frame-pyramid.png">
+  <video autoplay muted playsinline poster="assets/poster.png">
     <source src="assets/GhostiesAnimation.mp4" type="video/mp4">
   </video>
 
@@ -86,19 +85,31 @@
 
   <script>
     const video = document.querySelector('video');
-    const PAUSE_AT = 11.3; // Frame 136 at 12fps — all assets visible, before fade
+    const PAUSE_AT = 12.5; // Frame 150 at 12fps — all assets visible, before scatter
+    let paused = false;
+    let scattering = false;
 
     video.addEventListener('timeupdate', () => {
-      if (video.currentTime >= PAUSE_AT) {
+      if (!paused && !scattering && video.currentTime >= PAUSE_AT) {
         video.pause();
+        paused = true;
       }
     });
 
     video.addEventListener('click', () => {
-      if (video.paused) {
-        video.currentTime = 0;
+      if (paused) {
+        // Let the scatter animation play out
+        paused = false;
+        scattering = true;
         video.play();
       }
+    });
+
+    video.addEventListener('ended', () => {
+      // After scatter finishes, restart
+      scattering = false;
+      video.currentTime = 0;
+      video.play();
     });
   </script>
 </body>
