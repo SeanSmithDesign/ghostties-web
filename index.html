@@ -10,74 +10,30 @@
   <meta property="og:image" content="/assets/frame-pyramid.png">
   <meta property="og:type" content="website">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #0e0e10;
-      color: #e8e4df;
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #1a1a2e;
+    }
+
+    video {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100vw;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .container {
-      padding: 2rem;
-      max-width: 600px;
-      width: 100%;
-    }
-
-    .hero-video {
-      width: 100%;
-      max-width: 420px;
+      width: auto;
       height: auto;
-      border-radius: 12px;
-      margin-bottom: 2rem;
-    }
-
-    .four-oh-four {
-      font-size: clamp(6rem, 20vw, 12rem);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      color: #c97350;
-    }
-
-    .tagline {
-      margin-top: 1.25rem;
-      font-size: 1.125rem;
-      font-weight: 400;
-      color: #8a857f;
-      letter-spacing: 0.01em;
-    }
-
-    .more {
-      margin-top: 0.5rem;
-      font-size: 0.875rem;
-      color: #5a5650;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <video
-      class="hero-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      poster="assets/frame-pyramid.png"
-    >
-      <source src="assets/GhostiesAnimation.mp4" type="video/mp4">
-    </video>
-    <div class="four-oh-four">404</div>
-    <p class="tagline">We're made on 404, coming soon.</p>
-    <p class="more">More soon.</p>
-  </div>
+  <video autoplay muted loop playsinline poster="assets/frame-pyramid.png">
+    <source src="assets/GhostiesAnimation.mp4" type="video/mp4">
+  </video>
 </body>
 </html>
