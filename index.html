@@ -14,20 +14,26 @@
 
     html, body {
       height: 100%;
-      overflow: hidden;
       background: #1a1a2e;
     }
 
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
     video {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      min-width: 100vw;
-      min-height: 100vh;
-      width: auto;
+      width: 100%;
+      max-width: 720px;
       height: auto;
-      object-fit: cover;
+      border-radius: 16px;
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 16px; }
+      video { border-radius: 12px; }
     }
   </style>
 </head>
