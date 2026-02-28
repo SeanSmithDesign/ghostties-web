@@ -41,11 +41,28 @@
       padding: 24px;
     }
 
+    .video-container {
+      position: relative;
+      max-width: 720px;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
     video {
       width: 100%;
-      max-width: 720px;
       height: auto;
-      border-radius: 16px;
+      display: block;
+    }
+
+    .gh-link {
+      position: absolute;
+      bottom: 3%;
+      left: 4%;
+      width: 75%;
+      height: 5%;
+      z-index: 1;
       cursor: pointer;
     }
 
@@ -80,15 +97,18 @@
 
     @media (max-width: 480px) {
       body { padding: 16px; }
-      video { border-radius: 12px; }
+      .video-container { border-radius: 12px; }
       footer { padding: 12px 16px; font-size: 12px; }
     }
   </style>
 </head>
 <body>
-  <video autoplay muted playsinline poster="assets/poster.png">
-    <source src="assets/GhostiesAnimation.mp4" type="video/mp4">
-  </video>
+  <div class="video-container">
+    <video autoplay muted playsinline poster="assets/poster.png">
+      <source src="assets/GhostiesAnimation.mp4" type="video/mp4">
+    </video>
+    <a class="gh-link" href="https://github.com/SeanSmithDesign/ghostties" target="_blank" rel="noopener"></a>
+  </div>
 
   <footer>
     <span>&copy; 2026</span>
@@ -106,28 +126,33 @@
 
   <script>
     const video = document.querySelector('video');
-    const PAUSE_AT = 12.0; // Frame 144 at 12fps — URL done, well before scatter at 150
-    let paused = false;
+    const container = document.querySelector('.video-container');
+    const ghLink = document.querySelector('.gh-link');
+    const LOOP_AT = 12.0;
+    const LOOP_TO = 10.0;
     let scattering = false;
 
     video.addEventListener('timeupdate', () => {
-      if (!paused && !scattering && video.currentTime >= PAUSE_AT) {
-        video.pause();
-        paused = true;
+      if (!scattering && video.currentTime >= LOOP_AT) {
+        video.currentTime = LOOP_TO;
       }
     });
 
-    video.addEventListener('click', () => {
-      if (paused) {
-        // Let the scatter animation play out
-        paused = false;
+    container.addEventListener('click', () => {
+      if (!scattering) {
         scattering = true;
-        video.play();
+        // Jump past loop point so scatter plays out
+        if (video.currentTime < LOOP_AT) {
+          video.currentTime = LOOP_AT;
+        }
       }
+    });
+
+    ghLink.addEventListener('click', (e) => {
+      e.stopPropagation();
     });
 
     video.addEventListener('ended', () => {
-      // After scatter finishes, restart
       scattering = false;
       video.currentTime = 0;
       video.play();
